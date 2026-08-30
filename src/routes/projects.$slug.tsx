@@ -111,7 +111,9 @@ function ProjectDetail() {
             loading={isLoading}
             hidePhotos={project.slug === "comento-convention" || project.slug === "comento-hr" || project.slug === "waynabox" || project.slug === "kasteel-rouge"}
           >
-            {hasSheet ? (
+            {sheetPending && !hasSheet ? (
+              <ContentLoading />
+            ) : hasSheet ? (
               <section className="w-full px-6 py-16 space-y-12">
 <SheetRow title={sheet!.background.title} fields={sheet!.background.fields} layout="background" marker="arrow" />
                 <SheetRow
