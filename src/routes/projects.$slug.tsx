@@ -111,7 +111,7 @@ function ProjectDetail() {
             loading={isLoading}
             hidePhotos={project.slug === "comento-convention" || project.slug === "comento-hr" || project.slug === "waynabox" || project.slug === "kasteel-rouge"}
           >
-            {sheetPending && !hasSheet ? (
+            {sheetPending ? (
               <ContentLoading />
             ) : hasSheet ? (
               <section className="w-full px-6 py-16 space-y-12">
