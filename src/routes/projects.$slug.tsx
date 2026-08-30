@@ -47,7 +47,7 @@ function ProjectDetail() {
   const prev = PROJECTS[(idx - 1 + PROJECTS.length) % PROJECTS.length];
   const next = PROJECTS[(idx + 1) % PROJECTS.length];
   const { data, isLoading } = useQuery(notionPageQueryOptions("project", project.slug));
-  const { data: sheet } = useQuery(projectSheetQueryOptions(project.slug));
+  const { data: sheet, isPending: sheetPending } = useQuery(projectSheetQueryOptions(project.slug));
   const staticImages = STATIC_PROJECT_IMAGES[project.slug];
   const images = data?.images?.length
     ? data.images
