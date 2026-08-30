@@ -277,8 +277,9 @@ export function notionPageQueryOptions(kind: "project" | "experience", slug: str
   return {
     queryKey: ["notion-page", kind, slug, version] as const,
     queryFn: fetchPage,
-    initialData: fallback,
-    placeholderData: (prev: NotionPagePayload | undefined) => prev ?? fallback,
+    // No initialData: let the UI show its loading skeleton while fetching
+    // instead of flashing the static snapshot. The snapshot is returned
+    // only after a real fetch failure (e.g. GitHub Pages).
     // Always refetch on mount so Notion edits show up immediately.
     staleTime: 0,
     gcTime: 5 * 60 * 1000,
