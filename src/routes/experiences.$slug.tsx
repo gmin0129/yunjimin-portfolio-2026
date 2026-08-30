@@ -7,6 +7,7 @@ import { notionPageQueryOptions } from "@/lib/notion-images.functions";
 import { experienceSheetQueryOptions } from "@/lib/sheets.queries";
 import { SheetRow } from "@/components/SheetSections";
 import { assetUrl } from "@/lib/asset-url";
+import { ContentLoading } from "@/components/ContentLoading";
 
 
 export const Route = createFileRoute("/experiences/$slug")({

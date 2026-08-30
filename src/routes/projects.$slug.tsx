@@ -9,6 +9,7 @@ import { projectSheetQueryOptions } from "@/lib/sheets.queries";
 import { SheetRow } from "@/components/SheetSections";
 import { ExternalLink } from "lucide-react";
 import { assetUrl } from "@/lib/asset-url";
+import { ContentLoading } from "@/components/ContentLoading";
 
 
 export const Route = createFileRoute("/projects/$slug")({
