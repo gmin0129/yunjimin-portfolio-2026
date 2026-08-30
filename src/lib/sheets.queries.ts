@@ -25,8 +25,9 @@ export function projectSheetQueryOptions(slug: string) {
   return {
     queryKey: ["project-sheet", slug] as const,
     queryFn: () => safeCall(() => getProjectSheetDetail({ data: { slug } }), fallback),
-    initialData: fallback ?? undefined,
-    placeholderData: (prev: SheetDetail | undefined) => prev ?? fallback ?? undefined,
+    // No initialData: show a loading state while fetching instead of
+    // flashing the static snapshot. The snapshot is only used after a
+    // real failure (e.g. static hosting without server functions).
     staleTime: 0,
     gcTime: 5 * 60 * 1000,
     refetchOnMount: "always" as const,
@@ -40,8 +41,6 @@ export function experienceSheetQueryOptions(slug: string) {
   return {
     queryKey: ["experience-sheet", slug] as const,
     queryFn: () => safeCall(() => getExperienceSheetDetail({ data: { slug } }), fallback),
-    initialData: fallback ?? undefined,
-    placeholderData: (prev: SheetDetail | undefined) => prev ?? fallback ?? undefined,
     staleTime: 0,
     gcTime: 5 * 60 * 1000,
     refetchOnMount: "always" as const,

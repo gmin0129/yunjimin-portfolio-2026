@@ -9,6 +9,7 @@ import { projectSheetQueryOptions } from "@/lib/sheets.queries";
 import { SheetRow } from "@/components/SheetSections";
 import { ExternalLink } from "lucide-react";
 import { assetUrl } from "@/lib/asset-url";
+import { ContentLoading } from "@/components/ContentLoading";
 
 
 export const Route = createFileRoute("/projects/$slug")({
@@ -47,7 +48,7 @@ function ProjectDetail() {
   const prev = PROJECTS[(idx - 1 + PROJECTS.length) % PROJECTS.length];
   const next = PROJECTS[(idx + 1) % PROJECTS.length];
   const { data, isLoading } = useQuery(notionPageQueryOptions("project", project.slug));
-  const { data: sheet } = useQuery(projectSheetQueryOptions(project.slug));
+  const { data: sheet, isPending: sheetPending } = useQuery(projectSheetQueryOptions(project.slug));
   const staticImages = STATIC_PROJECT_IMAGES[project.slug];
   const images = data?.images?.length
     ? data.images
@@ -111,7 +112,9 @@ function ProjectDetail() {
             loading={isLoading}
             hidePhotos={project.slug === "comento-convention" || project.slug === "comento-hr" || project.slug === "waynabox" || project.slug === "kasteel-rouge"}
           >
-            {hasSheet ? (
+            {sheetPending ? (
+              <ContentLoading />
+            ) : hasSheet ? (
               <section className="w-full px-6 py-16 space-y-12">
 <SheetRow title={sheet!.background.title} fields={sheet!.background.fields} layout="background" marker="arrow" />
                 <SheetRow

@@ -7,6 +7,7 @@ import { notionPageQueryOptions } from "@/lib/notion-images.functions";
 import { experienceSheetQueryOptions } from "@/lib/sheets.queries";
 import { SheetRow } from "@/components/SheetSections";
 import { assetUrl } from "@/lib/asset-url";
+import { ContentLoading } from "@/components/ContentLoading";
 
 
 export const Route = createFileRoute("/experiences/$slug")({
@@ -45,7 +46,7 @@ function ExperienceDetail() {
   const prev = EXPERIENCES[(idx - 1 + EXPERIENCES.length) % EXPERIENCES.length];
   const next = EXPERIENCES[(idx + 1) % EXPERIENCES.length];
   const { data, isLoading } = useQuery(notionPageQueryOptions("experience", experience.slug));
-  const { data: sheet } = useQuery(experienceSheetQueryOptions(experience.slug));
+  const { data: sheet, isPending: sheetPending } = useQuery(experienceSheetQueryOptions(experience.slug));
   const images = data?.images?.length ? data.images : experience.images;
   const overview = data?.summary?.trim() ? data.summary : experience.overview;
   const role = data?.highlights?.length ? data.highlights : experience.role;
@@ -78,7 +79,9 @@ function ExperienceDetail() {
         loading={isLoading}
         hidePhotos={experience.slug === "kosac-2025" || experience.slug === "dyb-choisun"}
       >
-      {hasSheet ? (
+      {sheetPending ? (
+        <ContentLoading />
+      ) : hasSheet ? (
         <section className="mx-auto max-w-5xl px-6 py-16 space-y-12 break-keep">
           {hasSheet ? (
             <>
